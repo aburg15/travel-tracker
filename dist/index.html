@@ -4,13 +4,45 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Webpack Starter Kit</title>
+  <title>Travel Tracker!</title>
 </head>
-<body>
-  <img src="./images/turing-logo.png" alt="turing logo">
-  
-  <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
-  <script src="bundle.js"></script>
+<body class="body">
+  <aside class="sidebar">
+    <form class="form-container">
+      <label class="input-label">Select Departure Date</label>
+      <input type="date" name="date" required>
+      <label class="input-label">Trip Duration</label>
+      <input type="text" class="form-input" required>
+      <label class="input-label">Number of Travelers</label>
+      <input type="text" class="form-input" required>
+      <label class="input-label">Select Destination</label>
+      <input type="text" class="form-input" required>
+      <div class="button">
+        <input type="submit" class="trip-button" value="Add Trip Data!">
+      </div>
+    </form>
 
+  </aside>
+  <main class="main">
+    <section class="grid-heading">
+      <div class="heading-greet">
+        <div class="welcome-user-box">
+          <h1>WELCOME USER!</h1>
+        </div>
+        <div class = "money-spent-box">
+          <h1>TOTAL AMOUNT SPENT ON TRIPS<br>$10,000</h1>
+        </div>
+      </div>
+    </section>
+    <section class="grid-container">
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+    </section>
+  </main>
+  <script src="bundle.js"></script>
 </body>
 </html>
