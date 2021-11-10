@@ -17,11 +17,13 @@
 
 .main {
   border: 2px solid green;
+  height: 100%;
   width: 80%;
 }
 
 .sidebar {
   border: 2px solid green;
+  height: 100%;
   width: 20%;
 }
 
@@ -43,7 +45,7 @@
   border: 2px solid green;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  height: 75%;
+  height: 65%;
 }
 
 .box {
@@ -51,6 +53,7 @@
   flex-direction: column;
   margin: 5%;
   border: 2px solid green;
+  // height: 60%;
 }
 
 .welcome-user-box {
@@ -82,8 +85,19 @@
   justify-content: center;
 }
 
-.trip-button {
+.save-trip-button {
   margin-top: 10%;
   width: 80%;
+}
 
+.trip-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  margin: 2%;
+  width: 20%;
 }

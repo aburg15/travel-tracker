@@ -1,16 +1,13 @@
-import { travelerData, userTripData, userDestinationData } from './fetch';
-
-// An example of how you tell webpack to use a CSS (SCSS) file
 import './css/base.scss';
+import { travelerData, userTripData, userDestinationData } from './fetch';
 import Traveler from './traveler';
 import Trips from './trips';
 import Destinations from './destinations';
 import TravelerRepository from './travelerRepository';
 import { generateRandomIndex } from './utils';
+import domUpdates from './domUpdates.js';
 
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
-// import './images/turing-logo.png'
-
+const header = document.querySelector('#headingGreet');
 
 
 
@@ -32,9 +29,10 @@ const loadPage = (data) => {
   const allTravelers = new TravelerRepository(data[0]);
   const tripData = new Trips(data[1]);
   const destinationData = new Destinations(data[2]);
-  const randomIndex = generateRandomIndex(allTravelers.travelers)
-  const currentTraveler = new TravelerRepository(allTravelers.travelers[randomIndex]);
-  console.log(currentTraveler)
+  const randomIndex = generateRandomIndex(allTravelers.travelers);
+  const currentTraveler = new Traveler(allTravelers.travelers[randomIndex]);
+  header.innerHTML = domUpdates.generateHeaderContent(currentTraveler);
+  
 }
 
 window.addEventListener('load', fetchData)
