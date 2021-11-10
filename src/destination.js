@@ -1,4 +1,4 @@
-class Destinations {
+class Destination {
   constructor(dataset) {
     this.id = dataset.id;
     this.destination = dataset.destination;
@@ -9,4 +9,4 @@ class Destinations {
   }
 }
 
-export default Destinations;
+export default Destination;

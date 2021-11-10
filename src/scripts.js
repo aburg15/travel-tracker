@@ -1,8 +1,8 @@
 import './css/base.scss';
 import { travelerData, userTripData, userDestinationData } from './fetch';
 import Traveler from './traveler';
-import Trips from './trips';
-import Destinations from './destinations';
+import Trip from './trip';
+import Destination from './destination';
 import TravelerRepository from './travelerRepository';
 import { generateRandomIndex } from './utils';
 import domUpdates from './domUpdates.js';
@@ -27,8 +27,8 @@ const parseData = (data) => {
 
 const loadPage = (data) => {
   const allTravelers = new TravelerRepository(data[0]);
-  const tripData = new Trips(data[1]);
-  const destinationData = new Destinations(data[2]);
+  const tripData = new Trip(data[1]);
+  const destinationData = new Destination(data[2]);
   const randomIndex = generateRandomIndex(allTravelers.travelers);
   const currentTraveler = new Traveler(allTravelers.travelers[randomIndex]);
   header.innerHTML = domUpdates.generateHeaderContent(currentTraveler);
