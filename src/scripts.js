@@ -31,6 +31,8 @@ const loadPage = (data) => {
   const destinationData = new Destination(data[2]);
   const randomIndex = generateRandomIndex(allTravelers.travelers);
   const currentTraveler = new Traveler(allTravelers.travelers[randomIndex]);
+  // const travelerTrips = new Traveler(currentTraveler, tripData)
+
   header.innerHTML = domUpdates.generateHeaderContent(currentTraveler);
   
 }
