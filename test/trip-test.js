@@ -34,4 +34,7 @@ describe('Trip', function() {
       expect(trip.status).to.equal("approved");
       expect(trip.suggestedActivities).to.deep.equal([]);
     })
+
+    
+
   });
