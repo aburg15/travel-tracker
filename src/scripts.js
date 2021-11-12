@@ -9,8 +9,6 @@ import domUpdates from './domUpdates.js';
 
 const header = document.querySelector('#headingGreet');
 
-
-
 const fetchData = () => {
   return Promise.all([travelerData(), userTripData(), userDestinationData()])
     .then(data => parseData(data));
@@ -21,17 +19,18 @@ const parseData = (data) => {
   const travelersData = data[0].travelers;
   const tripEntries = data[1].trips;
   const destinationEntries = data[2].destinations;
-
+  
   loadPage([travelersData, tripEntries, destinationEntries])
 }
 
 const loadPage = (data) => {
   const allTravelers = new TravelerRepository(data[0]);
-  const tripData = new Trip(data[1]);
-  const destinationData = new Destination(data[2]);
+  const tripData = new Trip(data[1]).dataset;
+  const destinationData = new Destination(data[2]).dataset;
   const randomIndex = generateRandomIndex(allTravelers.travelers);
   const currentTraveler = new Traveler(allTravelers.travelers[randomIndex]);
-  // const travelerTrips = new Traveler(currentTraveler, tripData)
+  const logTripsByTraveler = currentTraveler.assembleTripsByTraveler(tripData);
+  const amountSpentByTraveler = currentTraveler.amountSpentOnTripsByTraveler(tripData, destinationData)
 
   header.innerHTML = domUpdates.generateHeaderContent(currentTraveler);
   
