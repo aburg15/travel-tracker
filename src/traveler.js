@@ -5,6 +5,7 @@ class Traveler {
     // this.name = dataset.name;
     // this.travelerType = dataset.travelerType;
     this.allTrips = [];
+    this.allDestinations = [];
   }
 
   displayFirstName() {
@@ -20,17 +21,32 @@ class Traveler {
     })  
   }  
 
-  amountSpentOnTripsByTraveler(destinations) {
-    const travelerDestinations = destinations.filter((destination) => {
-      return this.dataset.id === destination.userID
+  assembleDestinationsByTraveler(destinations) {
+    return destinations.forEach((userDestinations) => {
+      this.allTrips.forEach((userTrips) => {
+        if (userDestinations.id === userTrips.destinationID) {
+          this.allDestinations.push(userDestinations)
+        }
+      })
     })
+  }
 
-    return travelerDestinations.reduce((acc, entry) => {
-      console.log(entry)
-      acc += (entry.travelers * 2)
+  amountSpentOnTripsByTraveler(destinations) {
+    const amountSpent = destinations.reduce((acc, entry) => {
+      this.allTrips.forEach((userTrip) => {
+        if (entry.id === userTrip.destinationID) {
+          acc += 
+            (((userTrip.duration * entry.estimatedLodgingCostPerDay) * 
+            (userTrip.travelers)) + 
+            (entry.estimatedFlightCostPerPerson * userTrip.travelers))
+        }
+      })
       return acc;
     }, 0)
+    return amountSpent.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");;
   }
+
+
 
 }
 

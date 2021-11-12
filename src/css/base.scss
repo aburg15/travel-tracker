@@ -1,6 +1,6 @@
 @import '_variables';
 
-.body{
+.body {
   background: $primary-background;
   border: 2px solid green;
   height: 100vh;
@@ -53,7 +53,7 @@
   flex-direction: column;
   margin: 5%;
   border: 2px solid green;
-  // height: 60%;
+  height: 60%;
 }
 
 .welcome-user-box {
@@ -65,6 +65,7 @@
 .money-spent-box {
   border: 2px solid green;
   margin: 1%;
+  width: 30%;
 }
 
 .form-container {
@@ -100,4 +101,30 @@
 .btn {
   margin: 2%;
   width: 20%;
+}
+
+.card-image-box {
+  display: flex;
+  justify-content: center;
+  height: 30%;
+  margin-bottom: 5%;
+}
+
+.card-image {
+  width: 70%;
+}
+
+.card-header {
+  display: flex;
+  justify-content: center;
+}
+
+.card-footer {
+  margin-left: 5px;
+  margin-top: 10px;
+  height: auto;
+}
+
+.footer-text {
+  margin: 0px;
 }

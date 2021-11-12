@@ -8,6 +8,8 @@ import { generateRandomIndex } from './utils';
 import domUpdates from './domUpdates.js';
 
 const header = document.querySelector('#headingGreet');
+const tripCardContainer = document.querySelector('#gridContainer')
+
 
 const fetchData = () => {
   return Promise.all([travelerData(), userTripData(), userDestinationData()])
@@ -30,10 +32,11 @@ const loadPage = (data) => {
   const randomIndex = generateRandomIndex(allTravelers.travelers);
   const currentTraveler = new Traveler(allTravelers.travelers[randomIndex]);
   const logTripsByTraveler = currentTraveler.assembleTripsByTraveler(tripData);
-  const amountSpentByTraveler = currentTraveler.amountSpentOnTripsByTraveler(tripData, destinationData)
+  const logDestinationsByTraveler = currentTraveler.assembleDestinationsByTraveler(destinationData);
+  const amountSpentByTraveler = currentTraveler.amountSpentOnTripsByTraveler(destinationData);
 
-  header.innerHTML = domUpdates.generateHeaderContent(currentTraveler);
-  
+  header.innerHTML = domUpdates.generateHeaderContent(currentTraveler, amountSpentByTraveler);
+  tripCardContainer.innerHTML = domUpdates.renderTripCards(currentTraveler.allTrips, currentTraveler.allDestinations)
 }
 
 window.addEventListener('load', fetchData)

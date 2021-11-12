@@ -1,6 +1,5 @@
 class Trip {
   constructor(dataset) {
-    console.log('a', dataset)
     this.dataset = dataset;
     // this.id = dataset.id;
     // this.userID = dataset.userID;
