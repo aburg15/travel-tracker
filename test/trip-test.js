@@ -25,16 +25,13 @@ describe('Trip', function() {
     });
   
     it('should store trip data', function() {
-      expect(trip.id).to.equal(1);
-      expect(trip.userID).to.equal(44);
-      expect(trip.destinationID).to.equal(49);
-      expect(trip.travelers).to.equal(1);
-      expect(trip.date).to.equal("2022/09/16");
-      expect(trip.duration).to.equal(8);
-      expect(trip.status).to.equal("approved");
-      expect(trip.suggestedActivities).to.deep.equal([]);
+      expect(trip.dataset.id).to.equal(1);
+      expect(trip.dataset.userID).to.equal(44);
+      expect(trip.dataset.destinationID).to.equal(49);
+      expect(trip.dataset.travelers).to.equal(1);
+      expect(trip.dataset.date).to.equal("2022/09/16");
+      expect(trip.dataset.duration).to.equal(8);
+      expect(trip.dataset.status).to.equal("approved");
+      expect(trip.dataset.suggestedActivities).to.deep.equal([]);
     })
-
-    
-
   });

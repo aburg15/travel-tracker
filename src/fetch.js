@@ -3,6 +3,11 @@ export const travelerData = () => {
     .then(response => response.json())
 }
 
+// export const singleTravelerData = (travelerID) => {
+//   return fetch('http://localhost:3001/api/v1/travelers/${travelerID}')
+//     .then(response => response.json())
+// }
+
 export const userTripData = () => {
   return fetch('http://localhost:3001/api/v1/trips')
     .then(response => response.json())
