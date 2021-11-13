@@ -1,9 +1,6 @@
 class Traveler {
   constructor(dataset) {
     this.dataset = dataset;
-    // this.id = dataset.id;
-    // this.name = dataset.name;
-    // this.travelerType = dataset.travelerType;
     this.allTrips = [];
     this.allDestinations = [];
   }
@@ -33,8 +30,8 @@ class Traveler {
 
   amountSpentOnTripsByTraveler(destinations) {
     const amountSpent = destinations.reduce((acc, entry) => {
-      this.allTrips.forEach((userTrip) => {
-        if (entry.id === userTrip.destinationID) {
+      this.allTrips.forEach((userTrip) => {        
+        if (entry.id === userTrip.destinationID && userTrip.date.split('/').includes('2021')) {
           acc += 
             (((userTrip.duration * entry.estimatedLodgingCostPerDay) * 
             (userTrip.travelers)) + 
@@ -43,7 +40,7 @@ class Traveler {
       })
       return acc;
     }, 0)
-    return amountSpent.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");;
+    return (amountSpent + (amountSpent * .1)).toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
 
