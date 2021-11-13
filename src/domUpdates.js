@@ -20,6 +20,15 @@ const domUpdates = {
               </div>
             </div>
     `
+  },
+
+  addDestinationsToForm(destination) {
+    return `<option value=${destination} name="destination">${destination}</option>`
+
+  },
+
+  addEstimatedTripCost(tripCost) {
+    return `<h5>Estimated Cost:<br>$${tripCost}</h5>`
   }
 
 }

@@ -43,6 +43,10 @@ class Traveler {
     return (amountSpent + (amountSpent * .1)).toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
+  // estimatedTripCost() {
+    
+  // }
+
 
 
 }

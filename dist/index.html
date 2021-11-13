@@ -11,16 +11,20 @@
     <form class="form-container" id="formContainer">
       <label class="input-label">Select Departure Date:</label>
       <input type="date" name="date" min:  required>
-      <label class="input-label">Trip Duration:</label>
-      <input type="text" class="form-input" required>
+      <label class="input-label">Trip Duration (days):</label>
+      <input type="text" class="form-input" id="formDuration" name="duration" required>
       <label class="input-label">Number of Travelers:</label>
-      <input type="text" class="form-input" required>
+      <input type="text" class="form-input" id="formTravelers" name="travelers" required>
       <label class="input-label">Select Destination:</label>
-      <input type="text" class="form-input" required>
+      <select name="destination" class="form-input" id="formDestinations" required>
+      </select>
       <div class="button">
-        <input type="submit" class="save-trip-button" value="Get a Quote!">
+        <button type="button" class="save-trip-button" id="getQuote">Get Quote</button>
+        <button type="submit" class="save-trip-button">Post Trip</button>
       </div>
       <div class="trip-status" id="tripStatus"></div>
+      <section class="pending-trip-cost" id="pendingTripCost">
+      </section>
     </form>
   </aside>
   <main class="main">
