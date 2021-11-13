@@ -14,7 +14,6 @@ const tripCardContainer = document.querySelector('#gridContainer')
 const fetchData = () => {
   return Promise.all([travelerData(), userTripData(), userDestinationData()])
     .then(data => parseData(data));
-  
 }
 
 const parseData = (data) => {
@@ -31,12 +30,20 @@ const loadPage = (data) => {
   const destinationData = new Destination(data[2]).dataset;
   const randomIndex = generateRandomIndex(allTravelers.travelers);
   const currentTraveler = new Traveler(allTravelers.travelers[randomIndex]);
-  const logTripsByTraveler = currentTraveler.assembleTripsByTraveler(tripData);
-  const logDestinationsByTraveler = currentTraveler.assembleDestinationsByTraveler(destinationData);
+  currentTraveler.assembleTripsByTraveler(tripData);
+  currentTraveler.assembleDestinationsByTraveler(destinationData);
   const amountSpentByTraveler = currentTraveler.amountSpentOnTripsByTraveler(destinationData);
+  generateTripCard(currentTraveler);
 
   header.innerHTML = domUpdates.generateHeaderContent(currentTraveler, amountSpentByTraveler);
-  tripCardContainer.innerHTML = domUpdates.renderTripCards(currentTraveler.allTrips, currentTraveler.allDestinations)
 }
+
+const generateTripCard = (currentTraveler) => {
+  currentTraveler.allDestinations.forEach((destination) => {
+    tripCardContainer.innerHTML += domUpdates.renderTripCards(destination)
+  })
+
+}
+
 
 window.addEventListener('load', fetchData)

@@ -25,7 +25,7 @@ let travelerData, traveler1, traveler2, tripData, trip, destination, destination
       userID: 6,
       destinationID: 36,
       travelers: 5,
-      date: "2020/03/26",
+      date: "2021/03/26",
       duration: 19,
       status: "approved",
       suggestedActivities: []
@@ -35,7 +35,7 @@ let travelerData, traveler1, traveler2, tripData, trip, destination, destination
       userID: 6,
       destinationID: 47,
       travelers: 5,
-      date: "2019/08/17",
+      date: "2020/08/17",
       duration: 19,
       status: "approved",
       suggestedActivities: []
@@ -108,8 +108,8 @@ let travelerData, traveler1, traveler2, tripData, trip, destination, destination
   it('should be able to calculate the total amount spent on trips during 2021', function() {
     traveler1.assembleTripsByTraveler(tripData)
     traveler2.assembleTripsByTraveler(tripData)
-    expect(traveler1.amountSpentOnTripsByTraveler(destinationData)).to.equal(191150);
-    expect(traveler2.amountSpentOnTripsByTraveler(destinationData)).to.equal(102500);
+    expect(traveler1.amountSpentOnTripsByTraveler(destinationData)).to.equal('94,710');
+    expect(traveler2.amountSpentOnTripsByTraveler(destinationData)).to.equal('0');
 
   })
 
