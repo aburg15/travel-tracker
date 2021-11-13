@@ -8,18 +8,19 @@
 </head>
 <body class="body">
   <aside class="sidebar">
-    <form class="form-container">
-      <label class="input-label">Select Departure Date</label>
+    <form class="form-container" id="formContainer">
+      <label class="input-label">Select Departure Date:</label>
       <input type="date" name="date" min:  required>
-      <label class="input-label">Trip Duration</label>
+      <label class="input-label">Trip Duration:</label>
       <input type="text" class="form-input" required>
-      <label class="input-label">Number of Travelers</label>
+      <label class="input-label">Number of Travelers:</label>
       <input type="text" class="form-input" required>
-      <label class="input-label">Select Destination</label>
+      <label class="input-label">Select Destination:</label>
       <input type="text" class="form-input" required>
       <div class="button">
-        <input type="submit" class="save-trip-button" value="Add Trip Data!">
+        <input type="submit" class="save-trip-button" value="Get a Quote!">
       </div>
+      <div class="trip-status" id="tripStatus"></div>
     </form>
   </aside>
   <main class="main">
