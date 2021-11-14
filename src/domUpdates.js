@@ -8,15 +8,14 @@ const domUpdates = {
             </div>`
   },
 
-  renderTripCards(destinationsByTraveler) {
+  renderTripCardsWithDestinationInfo(destinationsByTraveler) {
     return `<div class="box">
               <h2 class="card-header">${destinationsByTraveler.destination}</h2>
               <div class="card-image-box">
                 <img src=${destinationsByTraveler.image} alt=${destinationsByTraveler.alt} class="card-image">
               </div>
-              <div class="card-footer">
-
-
+              <div class="card-footer">          
+                <h3 class="footer-text">Trip Status: ${destinationsByTraveler.status}</h3>
               </div>
             </div>
     `
@@ -35,7 +34,6 @@ const domUpdates = {
 
 export default domUpdates;
 
-// May use this later for the trip cards
-// <h3 class="footer-text">Date: ${tripsByTraveler[0].date}</h3>
-// <h3 class="footer-text">Number of Travelers: ${tripsByTraveler[0].travelers}</h3>
-// <h3 class="footer-text">Duration: ${tripsByTraveler[0].duration}</h3>
+  // <h3 class="footer-text">Date: ${tripsByTraveler[0].date}</h3>
+  // <h3 class="footer-text">Number of Travelers: ${tripsByTraveler[0].travelers}</h3>
+  // <h3 class="footer-text">Duration: ${tripsByTraveler[0].duration}</h3>

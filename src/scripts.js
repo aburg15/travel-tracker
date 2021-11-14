@@ -8,7 +8,6 @@ import TravelerRepository from './travelerRepository';
 import { generateRandomIndex } from './utils';
 import domUpdates from './domUpdates.js';
 
-
 const header = document.querySelector('#headingGreet');
 const tripCardContainer = document.querySelector('#gridContainer');
 const tripForm = document.querySelector('#formContainer');
@@ -18,7 +17,7 @@ const formDuration = document.querySelector('#formDuration');
 const formTravelers = document.querySelector('#formTravelers');
 const pendingTripCost = document.querySelector('#pendingTripCost');
 
-let currentTraveler, destinationData;
+let currentTraveler, destinationData, tripData;
 
 const fetchData = () => {
   return Promise.all([travelerData(), userTripData(), userDestinationData()])
@@ -34,22 +33,29 @@ const parseData = (data) => {
 
 const loadPage = (data) => {
   const allTravelers = new TravelerRepository(data[0]);
-  const tripData = new Trip(data[1]).dataset;
+  tripData = new Trip(data[1]).dataset;
   destinationData = new Destination(data[2]).dataset;
   const randomIndex = generateRandomIndex(allTravelers.travelers);
   // USING USER ID 43 BELOW RIGHT NOW, MAY NEED TO UPDATE TO BE RANDOM USER LATER
-  currentTraveler = new Traveler(allTravelers.travelers[42]);
+  currentTraveler = new Traveler(allTravelers.travelers[1]);
   currentTraveler.assembleTripsByTraveler(tripData);
   currentTraveler.assembleDestinationsByTraveler(destinationData);
   const amountSpentByTraveler = currentTraveler.amountSpentOnTripsByTraveler(destinationData);
-  generateTripCard(currentTraveler);
+  generateTripCardWithDestinationInfo(currentTraveler);
   addDestinationsToTripForm(destinationData);
   header.innerHTML = domUpdates.generateHeaderContent(currentTraveler, amountSpentByTraveler);
 }
 
-const generateTripCard = (currentTraveler) => {
+const generateTripCardWithDestinationInfo = (currentTraveler) => {
   currentTraveler.allDestinations.forEach((destination) => {
-    tripCardContainer.innerHTML += domUpdates.renderTripCards(destination);
+    currentTraveler.allTrips.forEach((trip) => {
+      if (trip.destinationID === destination.id && trip.status === 'pending') {
+        destination.status = 'Pending'
+      } else if (trip.destinationID === destination.id && trip.status === 'approved') {
+        destination.status = 'Approved'
+      }
+    })
+    tripCardContainer.innerHTML += domUpdates.renderTripCardsWithDestinationInfo(destination);
   })
 }
 
@@ -75,7 +81,6 @@ const estimateTripCost = () => {
   pendingTripCost.innerHTML = domUpdates.addEstimatedTripCost(totalCost)
 }
 
-
 window.addEventListener('load', fetchData)
 
 tripForm.addEventListener('submit',(e) => {
@@ -93,6 +98,7 @@ tripForm.addEventListener('submit',(e) => {
   };
   tripPost(newTrip);
   e.target.reset();
+  pendingTripCost.innerHTML = '';
 })
 
 estimateCost.addEventListener('click', estimateTripCost)
@@ -103,3 +109,4 @@ const findDestination = (destinationName) => {
   })
   return destinationID.id;
 }
+
