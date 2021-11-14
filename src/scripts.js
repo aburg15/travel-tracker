@@ -11,6 +11,7 @@ import domUpdates from './domUpdates.js';
 
 const header = document.querySelector('#headingGreet');
 const tripCardContainer = document.querySelector('#gridContainer');
+const cardFooter = document.querySelector('#cardFooter');
 const tripForm = document.querySelector('#formContainer');
 const tripFormDestinations = document.querySelector('#formDestinations');
 const estimateCost = document.querySelector('#getQuote');
@@ -18,7 +19,7 @@ const formDuration = document.querySelector('#formDuration');
 const formTravelers = document.querySelector('#formTravelers');
 const pendingTripCost = document.querySelector('#pendingTripCost');
 
-let currentTraveler, destinationData;
+let currentTraveler, destinationData, tripData;
 
 const fetchData = () => {
   return Promise.all([travelerData(), userTripData(), userDestinationData()])
@@ -34,22 +35,29 @@ const parseData = (data) => {
 
 const loadPage = (data) => {
   const allTravelers = new TravelerRepository(data[0]);
-  const tripData = new Trip(data[1]).dataset;
+  tripData = new Trip(data[1]).dataset;
   destinationData = new Destination(data[2]).dataset;
   const randomIndex = generateRandomIndex(allTravelers.travelers);
   // USING USER ID 43 BELOW RIGHT NOW, MAY NEED TO UPDATE TO BE RANDOM USER LATER
-  currentTraveler = new Traveler(allTravelers.travelers[42]);
+  currentTraveler = new Traveler(allTravelers.travelers[1]);
   currentTraveler.assembleTripsByTraveler(tripData);
   currentTraveler.assembleDestinationsByTraveler(destinationData);
   const amountSpentByTraveler = currentTraveler.amountSpentOnTripsByTraveler(destinationData);
-  generateTripCard(currentTraveler);
+  generateTripCardWithDestinationInfo(currentTraveler);
   addDestinationsToTripForm(destinationData);
   header.innerHTML = domUpdates.generateHeaderContent(currentTraveler, amountSpentByTraveler);
 }
 
-const generateTripCard = (currentTraveler) => {
+const generateTripCardWithDestinationInfo = (currentTraveler) => {
   currentTraveler.allDestinations.forEach((destination) => {
-    tripCardContainer.innerHTML += domUpdates.renderTripCards(destination);
+    currentTraveler.allTrips.forEach((trip) => {
+      if (trip.destinationID === destination.id && trip.status === 'pending') {
+        destination.status = 'pending'
+      } else if (trip.destinationID === destination.id && trip.status === 'approved') {
+        destination.status = 'approved'
+      }
+    })
+    tripCardContainer.innerHTML += domUpdates.renderTripCardsWithDestinationInfo(destination);
   })
 }
 
@@ -74,7 +82,6 @@ const estimateTripCost = () => {
   const totalCost = (estimatedCost + (estimatedCost * .1)).toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   pendingTripCost.innerHTML = domUpdates.addEstimatedTripCost(totalCost)
 }
-
 
 window.addEventListener('load', fetchData)
 
@@ -103,3 +110,4 @@ const findDestination = (destinationName) => {
   })
   return destinationID.id;
 }
+

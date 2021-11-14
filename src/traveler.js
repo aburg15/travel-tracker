@@ -15,6 +15,7 @@ class Traveler {
       if (this.dataset.id === trip.userID) {
         this.allTrips.push(trip)
       }
+      console.log(this.allTrips)
     })  
   }  
 
@@ -27,6 +28,8 @@ class Traveler {
       })
     })
   }
+
+  
 
   amountSpentOnTripsByTraveler(destinations) {
     const amountSpent = destinations.reduce((acc, entry) => {
