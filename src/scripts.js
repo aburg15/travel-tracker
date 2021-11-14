@@ -29,7 +29,6 @@ const parseData = (data) => {
   const travelersData = data[0].travelers;
   const tripEntries = data[1].trips;
   const destinationEntries = data[2].destinations;
-  
   loadPage([travelersData, tripEntries, destinationEntries])
 }
 
