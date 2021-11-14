@@ -42,9 +42,6 @@ class Traveler {
     }, 0)
     return (amountSpent + (amountSpent * .1)).toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
-
-
-
 }
 
 export default Traveler;
