@@ -15,7 +15,7 @@ const domUpdates = {
                 <img src=${destinationsByTraveler.image} alt=${destinationsByTraveler.alt} class="card-image">
               </div>
               <div class="card-footer">          
-                <h3 class="footer-text">Status: ${destinationsByTraveler.status}</h3>
+                <h3 class="footer-text">Trip Status: ${destinationsByTraveler.status}</h3>
               </div>
             </div>
     `

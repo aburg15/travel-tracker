@@ -8,10 +8,8 @@ import TravelerRepository from './travelerRepository';
 import { generateRandomIndex } from './utils';
 import domUpdates from './domUpdates.js';
 
-
 const header = document.querySelector('#headingGreet');
 const tripCardContainer = document.querySelector('#gridContainer');
-const cardFooter = document.querySelector('#cardFooter');
 const tripForm = document.querySelector('#formContainer');
 const tripFormDestinations = document.querySelector('#formDestinations');
 const estimateCost = document.querySelector('#getQuote');
@@ -52,9 +50,9 @@ const generateTripCardWithDestinationInfo = (currentTraveler) => {
   currentTraveler.allDestinations.forEach((destination) => {
     currentTraveler.allTrips.forEach((trip) => {
       if (trip.destinationID === destination.id && trip.status === 'pending') {
-        destination.status = 'pending'
+        destination.status = 'Pending'
       } else if (trip.destinationID === destination.id && trip.status === 'approved') {
-        destination.status = 'approved'
+        destination.status = 'Approved'
       }
     })
     tripCardContainer.innerHTML += domUpdates.renderTripCardsWithDestinationInfo(destination);
@@ -100,6 +98,7 @@ tripForm.addEventListener('submit',(e) => {
   };
   tripPost(newTrip);
   e.target.reset();
+  pendingTripCost.innerHTML = '';
 })
 
 estimateCost.addEventListener('click', estimateTripCost)
