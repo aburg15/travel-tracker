@@ -7,6 +7,7 @@ import Destination from './destination';
 import TravelerRepository from './travelerRepository';
 import { generateRandomIndex } from './utils';
 import domUpdates from './domUpdates.js';
+import './images/travel-icon.png';
 
 const header = document.querySelector('#headingGreet');
 const tripCardContainer = document.querySelector('#gridContainer');
