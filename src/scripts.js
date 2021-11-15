@@ -165,8 +165,7 @@ const findDestination = (destinationName) => {
   return destinationID.id;
 }
 
-const verifyLogin = (data) => {
-  console.log(usernameInput.value.slice(8))
+const verifyLogin = () => {
   if (passwordInput.value === 'travel') {
     show(tripCardContainer);
     show(header);

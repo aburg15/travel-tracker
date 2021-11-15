@@ -1,66 +1,64 @@
 @import '_variables';
+@import '_mixins';
 
 * {
-  font-family: 'Roboto', sans-serif;
+  font-family: $page-font;
 }
 
 html {
-  min-height: 100vh;
+  min-height: $view-height;
   position: relative;
-  background-color: #c0c0c0;
+  background-color: $primary-background;
 }
 
 .body {
   background: $primary-background;
-  min-height: 100vh;
+  min-height: $view-height;
   margin: 0px;
-  display: flex;
-  flex-direction: row;
-  background-color: #c0c0c0;
+  @include flex-row();
+  background-color: primary-background;
 }
 
 .main {
-  height: 100%;
+  height: $one-hundred-percent;
   width: 80%;
 }
 
 .sidebar {
-  min-height: 100%;
+  min-height: $one-hundred-percent;
   width: 20%;
   background-color: #336699;
-  border-right: 2px solid black;
+  border-right: $border;
 }
 
 .grid-heading {
   height: 35%;
-  display: flex;
-  background-color: #ffffff;
+  display: $flex;
+  background-color: $white;
   justify-content: space-between;
-  border-bottom: 2px solid black;
-  border-top: 2px solid black;
-  border-right: 2px solid black;
+  border-bottom: $border;
+  border-top: $border;
+  border-right: $border;
 }
 
 .heading-greet {
-  display: flex;
-  align-items: center;
+  @include flex-align-center();
   justify-content: right;
-  width: 100%;
+  width: $one-hundred-percent;
 }
 
 .grid-container {
-  background-color: #c0c0c0;
+  background-color: primary-background;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   height: 65%;
-  border-right: 2px solid black;
+  border-right: $border;
 }
 
 .box-all-trips {
-  display: flex;
-  flex-direction: column;
+  @include flex-column();
   margin: 5%;
-  border: 2px solid black;
+  border: $border;
   height: 300px;
   background-color: rgb(242, 236, 236);
   border-radius: 7px;
@@ -69,33 +67,29 @@ html {
 .travel-tracker-logo {
   margin: 3%;
   width: 40%;  
-  height: 100%;
+  height: $one-hundred-percent;
 }
 
 .money-spent-box {
-  display: flex;
-  flex-direction: column;
-  border: 2px solid black;
+  @include flex-column();
+  border: $border;
   margin: 1%;
   margin-right: 5%;
   height: 60%;
   width: 50%;
-  border-radius: 8px;
+  border-radius: $box-radius;
   padding: 10px;
   background-color: #FFCC00;
 }
 
 .login-box {
-  display: flex;
-  flex-direction: column;
-  // border: 2px solid black;
+  @include flex-column();
   margin: 1%;
   margin-right: 5%;
   height: 60%;
   width: 30%;
-  // border-radius: 5px;
   padding: 10px;
-  background-color: #FFFFFF;
+  background-color: $white;
 }
 
 .login-label {
@@ -119,13 +113,12 @@ html {
 }
 
 .form-container {
-  border-radius: 8px;
+  @include flex-column();
+  border-radius: $box-radius;
   height: 400px;
   margin: 10%;
-  display: flex;
-  flex-direction: column;
   padding: 10%; 
-  background-color: #ffffff;
+  background-color: $white;
 }
 
 .input-label {
@@ -140,8 +133,7 @@ html {
 }
 
 .trip-buttons {
-  display: flex;
-  flex-direction: row;
+  @include flex-row();
   margin-left: 1%;
 }
 
@@ -160,8 +152,7 @@ html {
 }
 
 .card-image-box {
-  display: flex;
-  justify-content: center;
+  @include flex-justify-center();
   height: 60%;
 }
 
@@ -171,8 +162,7 @@ html {
 }
 
 .card-header {
-  display: flex;
-  justify-content: center;
+  @include flex-justify-center();
 }
 
 .card-footer {
@@ -187,8 +177,7 @@ html {
 
 .trip-status {
   margin-top: 25px;
-  display: flex;
-  flex-direction: column;
+  @include flex-column();
   align-items: center;
 }
 
