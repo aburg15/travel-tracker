@@ -13,13 +13,13 @@
   <aside class="sidebar">
     <form class="form-container" id="formContainer">
       <h3>TRIP DETAILS</h3>
-      <label class="input-label">Select Departure Date:</label>
-      <input type="date" name="date" min:  required>
-      <label class="input-label">Trip Duration (days):</label>
+      <label class="input-label" for="date">Select Departure Date:</label>
+      <input type="date" name="date" id="date" min:  required>
+      <label class="input-label" for="formDuration">Trip Duration (days):</label>
       <input type="text" class="form-input" id="formDuration" name="duration" required>
-      <label class="input-label">Number of Travelers:</label>
+      <label class="input-label" for="formTravelers">Number of Travelers:</label>
       <input type="text" class="form-input" id="formTravelers" name="travelers" required>
-      <label class="input-label">Select Destination:</label>
+      <label class="input-label" for="formDestinations">Select Destination:</label>
       <select name="destination" class="form-input" id="formDestinations" required>
       </select>
       <div class="button">
