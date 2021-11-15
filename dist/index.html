@@ -1,57 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-  <title>Travel Tracker!</title>
-</head>
-<body class="body">
-  <aside class="sidebar">
-    <form class="form-container" id="formContainer">
-      <h3>TRIP DETAILS</h3>
-      <label class="input-label" for="date">Select Departure Date:</label>
-      <input type="date" name="date" id="date" min:  required>
-      <label class="input-label" for="formDuration">Trip Duration (days):</label>
-      <input type="text" class="form-input" id="formDuration" name="duration" required>
-      <label class="input-label" for="formTravelers">Number of Travelers:</label>
-      <input type="text" class="form-input" id="formTravelers" name="travelers" required>
-      <label class="input-label" for="formDestinations">Select Destination:</label>
-      <select name="destination" class="form-input" id="formDestinations" required>
-      </select>
-      <div class="button">
-        <button type="button" class="save-trip-button" id="getQuote">Get Quote</button>
-        <button type="submit" class="save-trip-button">Post Trip</button>
-      </div>
-      <div class="trip-status" id="tripStatus"></div>
-      <section class="pending-trip-cost" id="pendingTripCost">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <title>Travel Tracker!</title>
+  </head>
+  <body class="body">
+    <aside class="sidebar">
+      <img src="/images/travel-icon.png" alt="travel-icon" class="travel-icon">
+      <form class="form-container" id="formContainer">
+        <h3>TRIP DETAILS</h3>
+        <label class="input-label" for="date">Select Departure Date:</label>
+        <input type="date" name="date" id="date" min:  required>  
+        <label class="input-label" for="formDuration">Trip Duration (days):</label>
+        <input type="text" class="form-input" id="formDuration" name="duration" required>
+        <label class="input-label" for="formTravelers">Number of Travelers:</label>
+        <input type="text" class="form-input" id="formTravelers" name="travelers" required>
+        <label class="input-label" for="formDestinations">Select Destination:</label>
+        <select name="destination" class="form-input" id="formDestinations" required>
+        </select>
+        <div class="button">
+          <button type="button" class="save-trip-button" id="getQuote">Get Quote</button>
+          <button type="submit" class="save-trip-button">Post Trip</button>
+        </div>
+        <div class="trip-status" id="tripStatus"></div>
+        <section class="pending-trip-cost" id="pendingTripCost">
+        </section>
+      </form>
+    </aside>
+    <main class="main">
+      <section class="grid-heading">
+        <div class="travel-tracker-logo">
+          <h1 class="tracker-heading"><i>TRAVEL TRACKER</i></h1>
+        </div>
+        <div class="heading-greet hidden" id="headingGreet">
+        </div>
+        <div class="login-box" id="loginBox">
+          <h3 class="login-label">Sign in</h3>
+          <input type="text" class="user-input" placeholder="username" id="usernameInput" maxlength="10" name="username" required>
+          <input type="password" class="user-input" placeholder="password" id="passwordInput" name="password" required>
+          <button type="button" class="login-button" id="loginButton">Sign in</button>
+          <div class="wrong-password-field" id="wrongPasswordField"></div>
+        </div>
       </section>
-    </form>
-  </aside>
-  <main class="main">
-    <section class="grid-heading">
-      <div class="travel-tracker-logo">
-        <img src="/images/travel-icon.png" alt="travel-icon" class="travel-icon">
-        <h1 class="tracker-heading">TRAVEL TRACKER</h1>
-      </div>
-      <div class="heading-greet" id="headingGreet">
-      </div>
-    </section>
-    <!-- MAY USE THE BELOW COMMENTED OUT SECTION IF ENOUGH TIME REMAINS -->
-    <!-- <section class="trip-buttons">
-      <button type="button" class="btn">ALL TRIPS</button>
-      <button type="button" class="btn">PAST TRIPS</button>
-      <button type="button" class="btn">UPCOMING TRIPS</button>
-      <button type="button" class="btn">PENDING TRIPS</button>
-    </section> -->
-    <div>
-      <section class="grid-container" id="gridContainer">
+      <section class="trip-buttons hidden" id="tripButtons">
+        <button type="button" class="btn" id="allTripsBtn">ALL TRIPS</button>
+        <button type="button" class="btn" id="approvedTripsBtn">APPROVED TRIPS</button>
+        <button type="button" class="btn" id="pendingTripsBtn">PENDING TRIPS</button>
       </section>
-    </div>
-  </main>
-  <script src="bundle.js"></script>
-</body>
+      <div>
+        <section class="grid-container hidden" id="gridContainer">
+        </section>
+      </div>
+    </main>
+    <script src="bundle.js"></script>
+  </body>
 </html>

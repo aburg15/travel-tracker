@@ -21,7 +21,7 @@ class Traveler {
   assembleDestinationsByTraveler(destinations) {
     return destinations.forEach((userDestinations) => {
       this.allTrips.forEach((userTrips) => {
-        if (userDestinations.id === userTrips.destinationID) {
+        if (userDestinations.id === userTrips.destinationID && !this.allDestinations.includes(userDestinations)) {
           this.allDestinations.push(userDestinations)
         }
       })

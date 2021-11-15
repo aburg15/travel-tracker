@@ -8,6 +8,7 @@ import TravelerRepository from './travelerRepository';
 import { generateRandomIndex } from './utils';
 import domUpdates from './domUpdates.js';
 import './images/travel-icon.png';
+import './images/traveler-icon.png';
 
 const header = document.querySelector('#headingGreet');
 const tripCardContainer = document.querySelector('#gridContainer');
@@ -17,33 +18,42 @@ const estimateCost = document.querySelector('#getQuote');
 const formDuration = document.querySelector('#formDuration');
 const formTravelers = document.querySelector('#formTravelers');
 const pendingTripCost = document.querySelector('#pendingTripCost');
+const allTripsBtn = document.querySelector('#allTripsBtn');
+const approvedTripsBtn = document.querySelector('#approvedTripsBtn');
+const pendingTripsBtn = document.querySelector('#pendingTripsBtn');
+const loginBtn = document.querySelector('#loginButton');
+const usernameInput = document.querySelector('#usernameInput');
+const passwordInput = document.querySelector('#passwordInput');
+const loginBox = document.querySelector('#loginBox');
+const tripButtons = document.querySelector('#tripButtons');
+const wrongPwdField = document.querySelector('#wrongPasswordField');
 
 let currentTraveler, destinationData, tripData;
 
-const fetchData = () => {
+const fetchData = (travelerID) => {
   return Promise.all([travelerData(), userTripData(), userDestinationData()])
-    .then(data => parseData(data));
+    .then(data => parseData(data, travelerID));
 }
 
-const parseData = (data) => {
+const parseData = (data, travelerID) => {
   const travelersData = data[0].travelers;
   const tripEntries = data[1].trips;
   const destinationEntries = data[2].destinations;
-  loadPage([travelersData, tripEntries, destinationEntries])
+  loadPage([travelersData, tripEntries, destinationEntries], travelerID)
 }
 
-const loadPage = (data) => {
+const loadPage = (data, travelerID) => {
   const allTravelers = new TravelerRepository(data[0]);
   tripData = new Trip(data[1]).dataset;
   destinationData = new Destination(data[2]).dataset;
-  const randomIndex = generateRandomIndex(allTravelers.travelers);
-  // USING USER ID 43 BELOW RIGHT NOW, MAY NEED TO UPDATE TO BE RANDOM USER LATER
-  currentTraveler = new Traveler(allTravelers.travelers[1]);
+  // const randomIndex = generateRandomIndex(allTravelers.travelers);
+  currentTraveler = new Traveler(allTravelers.travelers[travelerID]);
   currentTraveler.assembleTripsByTraveler(tripData);
   currentTraveler.assembleDestinationsByTraveler(destinationData);
   const amountSpentByTraveler = currentTraveler.amountSpentOnTripsByTraveler(destinationData);
   generateTripCardWithDestinationInfo(currentTraveler);
   addDestinationsToTripForm(destinationData);
+  // verifyLogin(data)
   header.innerHTML = domUpdates.generateHeaderContent(currentTraveler, amountSpentByTraveler);
 }
 
@@ -56,7 +66,13 @@ const generateTripCardWithDestinationInfo = (currentTraveler) => {
         destination.status = 'Approved'
       }
     })
-    tripCardContainer.innerHTML += domUpdates.renderTripCardsWithDestinationInfo(destination);
+  })
+  addCardsToTripContainer();
+}
+
+const addCardsToTripContainer = () => {
+  currentTraveler.allDestinations.forEach((destination) => {
+    tripCardContainer.innerHTML += domUpdates.renderTripCardsWithDestinationInfo(destination); 
   })
 }
 
@@ -82,8 +98,6 @@ const estimateTripCost = () => {
   pendingTripCost.innerHTML = domUpdates.addEstimatedTripCost(totalCost)
 }
 
-window.addEventListener('load', fetchData)
-
 tripForm.addEventListener('submit',(e) => {
   e.preventDefault();
   const formData = new FormData(e.target);
@@ -99,10 +113,51 @@ tripForm.addEventListener('submit',(e) => {
   };
   tripPost(newTrip);
   e.target.reset();
+  currentTraveler.allTrips.push(newTrip);
+  currentTraveler.assembleDestinationsByTraveler(destinationData)
   pendingTripCost.innerHTML = '';
 })
 
-estimateCost.addEventListener('click', estimateTripCost)
+
+estimateCost.addEventListener('click', estimateTripCost);
+
+const filterPendingTrips = () => {
+  tripCardContainer.innerHTML = '';
+  currentTraveler.allDestinations.forEach((entry) => {
+    if (!entry.status) {
+      entry.status = 'Pending'
+    }
+  })
+  currentTraveler.allDestinations.forEach((destination) => {
+      if (destination.status === 'Pending') {
+        tripCardContainer.innerHTML += domUpdates.renderTripCardsWithDestinationInfo(destination);
+      }
+    })
+  }
+    
+pendingTripsBtn.addEventListener('click', filterPendingTrips)
+
+const filterApprovedTrips = () => {
+  tripCardContainer.innerHTML = '';
+  currentTraveler.allDestinations.forEach((destination) => {
+      if (destination.status === 'Approved') {
+        tripCardContainer.innerHTML += domUpdates.renderTripCardsWithDestinationInfo(destination);
+      }
+    })
+  }
+    
+approvedTripsBtn.addEventListener('click', filterApprovedTrips)
+
+const showAllTrips = () => {
+  tripCardContainer.innerHTML = '';
+  currentTraveler.allDestinations.forEach((destination) => {
+    if (destination.status === 'Approved' || destination.status === 'Pending') {
+      tripCardContainer.innerHTML += domUpdates.renderTripCardsWithDestinationInfo(destination);
+    }
+  })
+}
+
+allTripsBtn.addEventListener('click', showAllTrips)
 
 const findDestination = (destinationName) => {
   const destinationID = destinationData.find((entry) => {
@@ -110,4 +165,31 @@ const findDestination = (destinationName) => {
   })
   return destinationID.id;
 }
+
+const verifyLogin = (data) => {
+  console.log(usernameInput.value.slice(8))
+  if (passwordInput.value === 'travel') {
+    show(tripCardContainer);
+    show(header);
+    show(tripButtons);
+    hide(loginBox);
+  } else {
+    wrongPwdField.innerText = 'Incorrect password! Please try again.'
+  }
+  const travelerID = usernameInput.value.slice(8) - 1;
+  fetchData(travelerID)
+}
+
+loginBtn.addEventListener('click', verifyLogin)
+
+const show = (element) => {
+  element.classList.remove('hidden');
+}
+
+const hide = (element) => {
+  element.classList.add('hidden');
+}
+
+
+
 

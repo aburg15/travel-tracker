@@ -5,21 +5,18 @@
 }
 
 html {
-  min-height: 100%;
+  min-height: 100vh;
   position: relative;
+  background-color: #c0c0c0;
 }
 
 .body {
   background: $primary-background;
-  min-height: 100%;
+  min-height: 100vh;
   margin: 0px;
   display: flex;
   flex-direction: row;
-}
-
-.header {
-  height: 15vh;
-  width: 100%;
+  background-color: #c0c0c0;
 }
 
 .main {
@@ -35,8 +32,9 @@ html {
 }
 
 .grid-heading {
-  height: 30%;
+  height: 35%;
   display: flex;
+  background-color: #ffffff;
   justify-content: space-between;
   border-bottom: 2px solid black;
   border-top: 2px solid black;
@@ -58,7 +56,7 @@ html {
   border-right: 2px solid black;
 }
 
-.box {
+.box-all-trips {
   display: flex;
   flex-direction: column;
   margin: 5%;
@@ -81,15 +79,48 @@ html {
   margin: 1%;
   margin-right: 5%;
   height: 60%;
-  width: 45%;
+  width: 50%;
   border-radius: 8px;
   padding: 10px;
   background-color: #FFCC00;
 }
 
+.login-box {
+  display: flex;
+  flex-direction: column;
+  // border: 2px solid black;
+  margin: 1%;
+  margin-right: 5%;
+  height: 60%;
+  width: 30%;
+  // border-radius: 5px;
+  padding: 10px;
+  background-color: #FFFFFF;
+}
+
+.login-label {
+  margin: 0px 0px 10px 0px;
+}
+
+.user-input {
+  margin-bottom: 5px;
+  height: 25px;
+}
+
+.login-button {
+  background-color: #3d9ae8;
+  color: white;
+  height: 25px;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background-color: darkblue
+}
+
 .form-container {
   border-radius: 8px;
-  height: 500px;
+  height: 400px;
   margin: 10%;
   display: flex;
   flex-direction: column;
@@ -101,29 +132,31 @@ html {
   margin-top: 5%;
 }
 
-.button {  
-  display: flex;
-  justify-content: space-between;
-
-}
-
 .save-trip-button {
   margin-top: 10%;
   width: 48%;
   height: 60%;
-  
+  cursor: pointer;
 }
 
 .trip-buttons {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  margin-left: 1%;
 }
 
 .btn {
-  margin: 2%;
-  width: 20%;
+  margin: 2% .5% 2% .5%;
+  height: 50px;
+  width: 15%;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.btn:hover {
+  background-color: gray;
 }
 
 .card-image-box {
@@ -164,14 +197,31 @@ h5 {
 }
 
 .travel-icon {
-  width: 50%;
+  width: 80%;
   position: relative;
+  margin-top: 5%;
+  margin-left: 10%;
+  margin-bottom: 10%;
+}
+
+.traveler-icon {
+  width: 10%;
 }
 
 .tracker-heading {
-  font-size: xx-large;
+  font-size: 40px;
+  text-decoration: underline;
 }
 
 .money-spent-text {
   margin: 0px;
+}
+
+.hidden {
+  display: none!important;
+}
+
+.wrong-password-field {
+  margin-top: 10px;
+  color: red;
 }
