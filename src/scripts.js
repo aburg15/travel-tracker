@@ -1,6 +1,6 @@
 // An example of how you tell webpack to use a CSS (SCSS) file
 import './css/base.scss';
-import { travelerData, userTripData, userDestinationData, tripPost } from './fetch';
+import { travelerData, userTripData, userDestinationData, tripPost, singleTravelerData } from './fetch';
 import Traveler from './traveler';
 import Trip from './trip';
 import Destination from './destination';
@@ -31,7 +31,7 @@ const wrongPwdField = document.querySelector('#wrongPasswordField');
 let currentTraveler, destinationData, tripData;
 
 const fetchData = (travelerID) => {
-  return Promise.all([travelerData(), userTripData(), userDestinationData()])
+  return Promise.all([travelerData(), userTripData(), userDestinationData(), singleTravelerData(travelerID)])
     .then(data => parseData(data, travelerID));
 }
 
@@ -39,21 +39,20 @@ const parseData = (data, travelerID) => {
   const travelersData = data[0].travelers;
   const tripEntries = data[1].trips;
   const destinationEntries = data[2].destinations;
-  loadPage([travelersData, tripEntries, destinationEntries], travelerID)
+  const singleTraveler = data[3];
+  loadPage([travelersData, tripEntries, destinationEntries, singleTraveler], travelerID);
 }
 
 const loadPage = (data, travelerID) => {
   const allTravelers = new TravelerRepository(data[0]);
   tripData = new Trip(data[1]).dataset;
   destinationData = new Destination(data[2]).dataset;
-  // const randomIndex = generateRandomIndex(allTravelers.travelers);
-  currentTraveler = new Traveler(allTravelers.travelers[travelerID]);
+  currentTraveler = new Traveler(allTravelers.travelers[data[3].id - 1]);
   currentTraveler.assembleTripsByTraveler(tripData);
   currentTraveler.assembleDestinationsByTraveler(destinationData);
   const amountSpentByTraveler = currentTraveler.amountSpentOnTripsByTraveler(destinationData);
   generateTripCardWithDestinationInfo(currentTraveler);
   addDestinationsToTripForm(destinationData);
-  // verifyLogin(data)
   header.innerHTML = domUpdates.generateHeaderContent(currentTraveler, amountSpentByTraveler);
 }
 
@@ -176,7 +175,7 @@ const verifyLogin = (data) => {
   } else {
     wrongPwdField.innerText = 'Incorrect password! Please try again.'
   }
-  const travelerID = usernameInput.value.slice(8) - 1;
+  const travelerID = usernameInput.value.slice(8);
   fetchData(travelerID)
 }
 
