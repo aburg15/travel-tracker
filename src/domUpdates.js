@@ -1,8 +1,8 @@
 const domUpdates = {
   generateHeaderContent(currentTraveler, amountSpentByTraveler) {
     return `<div class = "money-spent-box">
-              <h1>WELCOME, ${currentTraveler.displayFirstName().toUpperCase()}!</h1>
-              <h1>TOTAL SPENT THIS YEAR: $${amountSpentByTraveler}</h1>
+              <h1 class="money-spent-text">WELCOME, ${currentTraveler.displayFirstName().toUpperCase()}!</h1>
+              <h1 class="money-spent-text">TOTAL SPENT THIS YEAR: $${amountSpentByTraveler}</h1>
             </div>`
   },
 
