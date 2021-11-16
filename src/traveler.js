@@ -23,11 +23,19 @@ class Traveler {
   assembleDestinationsByTraveler(destinations) {
     return destinations.forEach((userDestinations) => {
       this.allTrips.forEach((userTrips) => {
-        if (userDestinations.id === userTrips.destinationID && !this.allDestinations.includes(userDestinations)) {
+        if (userDestinations.id === userTrips.destinationID) {         
           this.allDestinations.push(userDestinations)
         }
       })
     })
+  }
+
+  addPostDestinationToTravelerDestinations(newTrip, destinations) {
+    return destinations.forEach((destination) => {
+      if (newTrip.destinationID === destination.id) {
+        this.allDestinations.push(destination)
+      }
+    })  
   }
 
   amountSpentOnTripsByTraveler(destinations) {

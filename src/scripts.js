@@ -1,10 +1,8 @@
-// An example of how you tell webpack to use a CSS (SCSS) file
 import './css/base.scss';
-import { travelerData, userTripData, userDestinationData, tripPost, singleTravelerData } from './fetch';
+import { userTripData, userDestinationData, tripPost, singleTravelerData } from './fetch';
 import Traveler from './traveler';
 import Trip from './trip';
 import Destination from './destination';
-import TravelerRepository from './travelerRepository';
 import domUpdates from './domUpdates.js';
 import './images/travel-icon.png';
 import './images/traveler-icon.png';
@@ -30,47 +28,33 @@ const wrongPwdField = document.querySelector('#wrongPasswordField');
 let currentTraveler, destinationData, tripData;
 
 const fetchData = (travelerID) => {
-  return Promise.all([travelerData(), userTripData(), userDestinationData(), singleTravelerData(travelerID)])
+  return Promise.all([userTripData(), userDestinationData(), singleTravelerData(travelerID)])  
     .then(data => parseData(data, travelerID));
 }
 
 const parseData = (data, travelerID) => {
-  const travelersData = data[0].travelers;
-  const tripEntries = data[1].trips;
-  const destinationEntries = data[2].destinations;
-  const singleTraveler = data[3];
-  loadPage([travelersData, tripEntries, destinationEntries, singleTraveler], travelerID);
+  const tripEntries = data[0].trips;
+  const destinationEntries = data[1].destinations;
+  const singleTraveler = data[2];
+  console.log(singleTraveler)
+  loadPage([tripEntries, destinationEntries, singleTraveler], travelerID);
 }
 
 const loadPage = (data, travelerID) => {
-  const allTravelers = new TravelerRepository(data[0]);
-  tripData = new Trip(data[1]).dataset;
-  destinationData = new Destination(data[2]).dataset;
-  currentTraveler = new Traveler(allTravelers.travelers[travelerID - 1]);
+  tripData = new Trip(data[0]).dataset;
+  destinationData = new Destination(data[1]).dataset;
+  currentTraveler = new Traveler(data[2]);
   currentTraveler.assembleTripsByTraveler(tripData);
   currentTraveler.assembleDestinationsByTraveler(destinationData);
   const amountSpentByTraveler = currentTraveler.amountSpentOnTripsByTraveler(destinationData);
-  generateTripCardWithDestinationInfo(currentTraveler);
   addDestinationsToTripForm(destinationData);
-  header.innerHTML = domUpdates.generateHeaderContent(currentTraveler, amountSpentByTraveler);
-}
-
-const generateTripCardWithDestinationInfo = (currentTraveler) => {
-  currentTraveler.allDestinations.forEach((destination) => {
-    currentTraveler.allTrips.forEach((trip) => {
-      if (trip.destinationID === destination.id && trip.status === 'pending') {
-        destination.status = 'Pending'
-      } else if (trip.destinationID === destination.id && trip.status === 'approved') {
-        destination.status = 'Approved'
-      }
-    })
-  })
   addCardsToTripContainer();
+  header.innerHTML = domUpdates.generateHeaderContent(currentTraveler, amountSpentByTraveler);
 }
 
 const addCardsToTripContainer = () => {
   currentTraveler.allDestinations.forEach((destination, index) => {
-    tripCardContainer.innerHTML += domUpdates.renderTripCardsWithDestinationInfo(destination, currentTraveler.allTrips[index]); 
+    tripCardContainer.innerHTML += domUpdates.renderTripCardsWithDestinationInfo(currentTraveler.allTrips[index], destination); 
   })
 }
 
@@ -112,7 +96,7 @@ tripForm.addEventListener('submit',(e) => {
   tripPost(newTrip);
   e.target.reset();
   currentTraveler.allTrips.push(newTrip);
-  currentTraveler.assembleDestinationsByTraveler(destinationData)
+  currentTraveler.addPostDestinationToTravelerDestinations(newTrip, destinationData)
   pendingTripCost.innerHTML = '';
 })
 
@@ -120,26 +104,23 @@ tripForm.addEventListener('submit',(e) => {
 estimateCost.addEventListener('click', estimateTripCost);
 
 const filterPendingTrips = () => {
+  console.log('a', currentTraveler.allTrips) 
+  console.log('b', currentTraveler.allDestinations) 
   tripCardContainer.innerHTML = '';
-  currentTraveler.allDestinations.forEach((entry) => {
-    if (!entry.status) {
-      entry.status = 'Pending'
+  currentTraveler.allTrips.forEach((trip, index) => {
+    if (trip.status === 'pending') {
+      tripCardContainer.innerHTML += domUpdates.renderTripCardsWithDestinationInfo(trip, currentTraveler.allDestinations[index]);
     }
   })
-  currentTraveler.allDestinations.forEach((destination, index) => {
-      if (destination.status === 'Pending') {
-        tripCardContainer.innerHTML += domUpdates.renderTripCardsWithDestinationInfo(destination, currentTraveler.allTrips[index]);
-      }
-    })
   }
     
 pendingTripsBtn.addEventListener('click', filterPendingTrips)
 
 const filterApprovedTrips = () => {
   tripCardContainer.innerHTML = '';
-  currentTraveler.allDestinations.forEach((destination, index) => {
-      if (destination.status === 'Approved') {
-        tripCardContainer.innerHTML += domUpdates.renderTripCardsWithDestinationInfo(destination, currentTraveler.allTrips[index]);
+  currentTraveler.allTrips.forEach((trip, index) => {
+      if (trip.status === 'approved') {
+        tripCardContainer.innerHTML += domUpdates.renderTripCardsWithDestinationInfo(trip, currentTraveler.allDestinations[index]);
       }
     })
   }
@@ -148,9 +129,9 @@ approvedTripsBtn.addEventListener('click', filterApprovedTrips)
 
 const showAllTrips = () => {
   tripCardContainer.innerHTML = '';
-  currentTraveler.allDestinations.forEach((destination, index) => {
-    if (destination.status === 'Approved' || destination.status === 'Pending') {
-      tripCardContainer.innerHTML += domUpdates.renderTripCardsWithDestinationInfo(destination, currentTraveler.allTrips[index] );
+  currentTraveler.allTrips.forEach((trip, index) => {
+    if (trip.status === 'approved' || trip.status === 'pending') {
+      tripCardContainer.innerHTML += domUpdates.renderTripCardsWithDestinationInfo(trip, currentTraveler.allDestinations[index] );
     }
   })
 }
