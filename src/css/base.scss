@@ -135,6 +135,7 @@ html {
 .trip-buttons {
   @include flex-row();
   margin-left: 1%;
+  border-right: $border;
 }
 
 .btn {
@@ -163,11 +164,13 @@ html {
 
 .card-header {
   @include flex-justify-center();
+  margin-top: 2px;
+  margin-bottom: 2px;
 }
 
 .card-footer {
   margin-left: 5px;
-  margin-top: 20px;
+  margin-top: 0px;
   height: auto;
 }
 
