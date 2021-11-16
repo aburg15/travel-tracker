@@ -4,7 +4,7 @@ export const travelerData = () => {
 }
 
 export const singleTravelerData = (travelerID) => {
-  return fetch('http://localhost:3001/api/v1/travelers/${travelerID}')
+  return fetch(`http://localhost:3001/api/v1/travelers/${travelerID}`)
     .then(response => response.json())
 }
 
