@@ -46,7 +46,7 @@ const loadPage = (data, travelerID) => {
   const allTravelers = new TravelerRepository(data[0]);
   tripData = new Trip(data[1]).dataset;
   destinationData = new Destination(data[2]).dataset;
-  currentTraveler = new Traveler(allTravelers.travelers[data[3].id - 1]);
+  currentTraveler = new Traveler(allTravelers.travelers[travelerID - 1]);
   currentTraveler.assembleTripsByTraveler(tripData);
   currentTraveler.assembleDestinationsByTraveler(destinationData);
   const amountSpentByTraveler = currentTraveler.amountSpentOnTripsByTraveler(destinationData);
@@ -69,8 +69,8 @@ const generateTripCardWithDestinationInfo = (currentTraveler) => {
 }
 
 const addCardsToTripContainer = () => {
-  currentTraveler.allDestinations.forEach((destination) => {
-    tripCardContainer.innerHTML += domUpdates.renderTripCardsWithDestinationInfo(destination); 
+  currentTraveler.allDestinations.forEach((destination, index) => {
+    tripCardContainer.innerHTML += domUpdates.renderTripCardsWithDestinationInfo(destination, currentTraveler.allTrips[index]); 
   })
 }
 
@@ -126,9 +126,9 @@ const filterPendingTrips = () => {
       entry.status = 'Pending'
     }
   })
-  currentTraveler.allDestinations.forEach((destination) => {
+  currentTraveler.allDestinations.forEach((destination, index) => {
       if (destination.status === 'Pending') {
-        tripCardContainer.innerHTML += domUpdates.renderTripCardsWithDestinationInfo(destination);
+        tripCardContainer.innerHTML += domUpdates.renderTripCardsWithDestinationInfo(destination, currentTraveler.allTrips[index]);
       }
     })
   }
@@ -137,9 +137,9 @@ pendingTripsBtn.addEventListener('click', filterPendingTrips)
 
 const filterApprovedTrips = () => {
   tripCardContainer.innerHTML = '';
-  currentTraveler.allDestinations.forEach((destination) => {
+  currentTraveler.allDestinations.forEach((destination, index) => {
       if (destination.status === 'Approved') {
-        tripCardContainer.innerHTML += domUpdates.renderTripCardsWithDestinationInfo(destination);
+        tripCardContainer.innerHTML += domUpdates.renderTripCardsWithDestinationInfo(destination, currentTraveler.allTrips[index]);
       }
     })
   }
@@ -148,9 +148,9 @@ approvedTripsBtn.addEventListener('click', filterApprovedTrips)
 
 const showAllTrips = () => {
   tripCardContainer.innerHTML = '';
-  currentTraveler.allDestinations.forEach((destination) => {
+  currentTraveler.allDestinations.forEach((destination, index) => {
     if (destination.status === 'Approved' || destination.status === 'Pending') {
-      tripCardContainer.innerHTML += domUpdates.renderTripCardsWithDestinationInfo(destination);
+      tripCardContainer.innerHTML += domUpdates.renderTripCardsWithDestinationInfo(destination, currentTraveler.allTrips[index] );
     }
   })
 }

@@ -11,13 +11,15 @@ class Traveler {
   }
 
   assembleTripsByTraveler(trips) {
-    return trips.forEach((trip) => {
+    trips.sort((a, b) => {
+      return a.destinationID - b.destinationID
+    }).forEach((trip) => {
       if (this.dataset.id === trip.userID) {
         this.allTrips.push(trip)
       }
-    })  
+    })
   }  
-
+  
   assembleDestinationsByTraveler(destinations) {
     return destinations.forEach((userDestinations) => {
       this.allTrips.forEach((userTrips) => {
