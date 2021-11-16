@@ -58,6 +58,7 @@ html {
 .box-all-trips {
   @include flex-column();
   margin: 5%;
+  padding: 2%;
   border: $border;
   height: 300px;
   background-color: rgb(242, 236, 236);
