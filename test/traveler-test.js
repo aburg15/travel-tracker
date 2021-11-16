@@ -74,8 +74,6 @@ describe('Traveler', function() {
         image: "https://images.unsplash.com/photo-1568625502763-2a5ec6a94c47?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80",
         alt: "aerial photography of high-rise building"
       }
-
-  
     ]
 
     traveler1 = new Traveler(travelerData[0]);
@@ -107,7 +105,6 @@ describe('Traveler', function() {
     traveler2.assembleTripsByTraveler(tripData)
     expect(traveler1.amountSpentOnTripsByTraveler(destinationData)).to.equal('94,710');
     expect(traveler2.amountSpentOnTripsByTraveler(destinationData)).to.equal('0');
-
   })
 
 });
