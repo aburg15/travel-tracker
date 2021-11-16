@@ -5,7 +5,6 @@ import Traveler from './traveler';
 import Trip from './trip';
 import Destination from './destination';
 import TravelerRepository from './travelerRepository';
-import { generateRandomIndex } from './utils';
 import domUpdates from './domUpdates.js';
 import './images/travel-icon.png';
 import './images/traveler-icon.png';
@@ -171,11 +170,11 @@ const verifyLogin = () => {
     show(header);
     show(tripButtons);
     hide(loginBox);
+    const travelerID = usernameInput.value.slice(8);
+    fetchData(travelerID)
   } else {
     wrongPwdField.innerText = 'Incorrect password! Please try again.'
   }
-  const travelerID = usernameInput.value.slice(8);
-  fetchData(travelerID)
 }
 
 loginBtn.addEventListener('click', verifyLogin)
