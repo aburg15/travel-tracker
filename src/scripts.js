@@ -99,7 +99,6 @@ tripForm.addEventListener('submit', (e) => {
   pendingTripCost.innerHTML = '';
 })
 
-
 estimateCost.addEventListener('click', estimateTripCost);
 
 const filterPendingTrips = () => {
