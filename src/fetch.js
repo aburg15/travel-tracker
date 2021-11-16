@@ -19,16 +19,16 @@ export const userDestinationData = () => {
 export const tripPost = (newTripData) => {
   fetch('http://localhost:3001/api/v1/trips', {
     method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newTripData)
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(newTripData)
   })
-  .then(response => isValidated(response, "tripStatus"))
-  .catch(err => showError(err));
+    .then(response => isValidated(response, "tripStatus"))
+    .catch(err => showError(err));
 }
 
 const showError = (err) => {
   const errorField = document.querySelector("#errorField")
-  if(err.message === "Failed to fetch"){
+  if (err.message === "Failed to fetch") {
     errorField.innerText = `Hey something went wrong check your network`
   } else {
     errorField.innerText = `${err.message}`
@@ -37,7 +37,7 @@ const showError = (err) => {
 
 const isValidated = (response, section) => {
   const statusField = document.querySelector(`#${section}`)
-  if(response.ok) {
+  if (response.ok) {
     statusField.innerText = `Added to Pending trips!`
   }
   return response.json()

@@ -39,7 +39,7 @@ const parseData = (data, travelerID) => {
   loadPage([tripEntries, destinationEntries, singleTraveler], travelerID);
 }
 
-const loadPage = (data, travelerID) => {
+const loadPage = (data) => {
   tripData = new Trip(data[0]).dataset;
   destinationData = new Destination(data[1]).dataset;
   currentTraveler = new Traveler(data[2]);
@@ -79,7 +79,7 @@ const estimateTripCost = () => {
   pendingTripCost.innerHTML = domUpdates.addEstimatedTripCost(totalCost)
 }
 
-tripForm.addEventListener('submit',(e) => {
+tripForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const formData = new FormData(e.target);
   const newTrip = {
@@ -87,7 +87,7 @@ tripForm.addEventListener('submit',(e) => {
     userID: currentTraveler.dataset.id, 
     destinationID: findDestination(formData.get('destination')),
     travelers: Number(formData.get('travelers')),
-    date: formData.get('date').replace(/-/gi,"/"),
+    date: formData.get('date').replace(/-/gi, "/"),
     duration: Number(formData.get('duration')),
     status: "pending",
     suggestedActivities: []
@@ -109,18 +109,18 @@ const filterPendingTrips = () => {
       tripCardContainer.innerHTML += domUpdates.renderTripCardsWithDestinationInfo(trip, currentTraveler.allDestinations[index]);
     }
   })
-  }
+}
     
 pendingTripsBtn.addEventListener('click', filterPendingTrips)
 
 const filterApprovedTrips = () => {
   tripCardContainer.innerHTML = '';
   currentTraveler.allTrips.forEach((trip, index) => {
-      if (trip.status === 'approved') {
-        tripCardContainer.innerHTML += domUpdates.renderTripCardsWithDestinationInfo(trip, currentTraveler.allDestinations[index]);
-      }
-    })
-  }
+    if (trip.status === 'approved') {
+      tripCardContainer.innerHTML += domUpdates.renderTripCardsWithDestinationInfo(trip, currentTraveler.allDestinations[index]);
+    }
+  })
+}
     
 approvedTripsBtn.addEventListener('click', filterApprovedTrips)
 
@@ -147,6 +147,7 @@ const verifyLogin = () => {
     show(tripCardContainer);
     show(header);
     show(tripButtons);
+    show(tripForm);
     hide(loginBox);
     const travelerID = usernameInput.value.slice(8);
     fetchData(travelerID)
