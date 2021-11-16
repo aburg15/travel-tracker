@@ -36,7 +36,6 @@ const parseData = (data, travelerID) => {
   const tripEntries = data[0].trips;
   const destinationEntries = data[1].destinations;
   const singleTraveler = data[2];
-  console.log(singleTraveler)
   loadPage([tripEntries, destinationEntries, singleTraveler], travelerID);
 }
 
@@ -104,8 +103,6 @@ tripForm.addEventListener('submit',(e) => {
 estimateCost.addEventListener('click', estimateTripCost);
 
 const filterPendingTrips = () => {
-  console.log('a', currentTraveler.allTrips) 
-  console.log('b', currentTraveler.allDestinations) 
   tripCardContainer.innerHTML = '';
   currentTraveler.allTrips.forEach((trip, index) => {
     if (trip.status === 'pending') {
