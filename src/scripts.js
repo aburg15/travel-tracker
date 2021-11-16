@@ -47,22 +47,9 @@ const loadPage = (data, travelerID) => {
   currentTraveler.assembleTripsByTraveler(tripData);
   currentTraveler.assembleDestinationsByTraveler(destinationData);
   const amountSpentByTraveler = currentTraveler.amountSpentOnTripsByTraveler(destinationData);
-  generateTripCardWithDestinationInfo(currentTraveler);
   addDestinationsToTripForm(destinationData);
-  header.innerHTML = domUpdates.generateHeaderContent(currentTraveler, amountSpentByTraveler);
-}
-
-const generateTripCardWithDestinationInfo = (currentTraveler) => {
-  currentTraveler.allDestinations.forEach((destination) => {
-    currentTraveler.allTrips.forEach((trip) => {
-      if (trip.destinationID === destination.id && trip.status === 'pending') {
-        destination.status = 'pending'
-      } else if (trip.destinationID === destination.id && trip.status === 'approved') {
-        destination.status = 'approved'
-      }
-    })
-  })
   addCardsToTripContainer();
+  header.innerHTML = domUpdates.generateHeaderContent(currentTraveler, amountSpentByTraveler);
 }
 
 const addCardsToTripContainer = () => {
