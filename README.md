@@ -16,6 +16,10 @@ After the above steps have been followed, please do the following in order to ac
 - Type `npm install` to install all required dependencies
 - Type `npm start` to start local server  
 
+## Logging In
+- the travelID will be ``traveler`` + a number between ``0-50``
+- password will be ``travel`` for all users
+
 ## Screenshot:
 
 ![FitLit-gif](src/images/screenshot.png)
