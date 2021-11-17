@@ -25,7 +25,7 @@ describe('Traveler', function() {
       travelers: 5,
       date: "2021/03/26",
       duration: 19,
-      status: "approved",
+      status: "pending",
       suggestedActivities: []
     },
     {
@@ -85,9 +85,19 @@ describe('Traveler', function() {
     expect(Traveler).to.be.a('function');
   });
 
-  it('should store traveler data', function() {
+  it('should be an instance of traveler', function() {
+    expect(traveler1).to.be.an.instanceOf(Traveler);
+  })
+
+  it('should store a traveler ID', function() {
     expect(traveler1.dataset.id).to.equal(6);
+  })
+
+  it('should store a traveler name', function() {
     expect(traveler1.dataset.name).to.equal("Laverna Flawith");
+  })
+
+  it('should store a traveler type', function() {
     expect(traveler1.dataset.travelerType).to.equal("shopper");
   })
 
@@ -98,6 +108,26 @@ describe('Traveler', function() {
   it('should be able to assemble trips by traveler', function() {
     traveler1.assembleTripsByTraveler(tripData)
     expect(traveler1.allTrips).to.deep.equal([tripData[0], tripData[1]])
+  })
+
+  it('should be able to assemble destinations by traveler', function() {
+    traveler1.assembleTripsByTraveler(tripData)
+    traveler1.assembleDestinationsByTraveler(destinationData)
+    expect(traveler1.allDestinations).to.deep.equal([destinationData[0], destinationData[1]])
+  })
+
+  it('should be able to filter trips by pending status', function() {
+    traveler1.assembleTripsByTraveler(tripData);
+    let pendingTrips = [];
+    const pending = () => { 
+      traveler1.allTrips.forEach((trip) => {
+        if (trip.status === 'pending') {
+          pendingTrips.push(trip)   
+        }
+      })
+      return pendingTrips;
+    }
+    expect(pending()).to.deep.equal([tripData[0]])
   })
 
   it('should be able to calculate the total amount spent on trips during 2021', function() {
